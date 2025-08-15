@@ -324,7 +324,7 @@ h3.hello {
 }
 
 h3.hello span {
-  font-family: "Saira";
+  font-family: "Poppins", sans-serif;
   font-size: 32px;
   font-weight: 700;
   color: var(--skin-color);
