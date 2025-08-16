@@ -5,6 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portfolio: Prajwal Adhikari</title>
+    
+    <script>
+      // Immediately apply saved theme before page renders
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") {
+        document.documentElement.classList.add("dark"); // or document.body
+      }
+    </script>
+
     <!-- ==== CSS Files ==== -->
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/skins/color-1.css" />
