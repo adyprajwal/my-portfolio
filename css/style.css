@@ -623,10 +623,11 @@ h3.my-profession {
   margin-top: 0px;    /* aligns vertically like the icon */
   object-fit: contain; /* keeps aspect ratio */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
 }
 
 .service .service-item .service-item-inner:hover .icon .custom-icon {
-   transform: scale(1.1); /* gently enlarges */
+  transform: scale(1.1); /* gently enlarges */
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.6); /* soft glow */
 }
 
