@@ -1,92 +1,68 @@
-/* ========================= Typing Animation ========================= */
-let typed = new Typed(".typing", {
-  strings: [
-    "",
-    "Cybersecurity Professional",
-    "GRC Analyst",
-    "Information Systems Auditor",
-  ],
-  typeSpeed: 100,
-  BackSpeed: 60,
-  loop: true,
+// script.js — multipage-safe
+
+document.addEventListener("DOMContentLoaded", () => {
+  /* ========================= Typing Animation (guarded) ========================= */
+  const typingEl = document.querySelector(".typing");
+  if (typingEl && window.Typed) {
+    // Note: 'backSpeed' (lowercase 'b') is the correct option
+    new Typed(".typing", {
+      strings: [
+        "",
+        "Cybersecurity Professional",
+        "GRC Analyst",
+        "Information Systems Auditor",
+      ],
+      typeSpeed: 100,
+      backSpeed: 60,
+      loop: true,
+    });
+  }
+
+  /* ========================= Mobile Aside Toggler (multipage) ========================= */
+  const navTogglerBtn = document.querySelector(".nav-toggler");
+  const aside = document.querySelector(".aside");
+  const sections = document.querySelectorAll(".section"); // okay if empty
+
+  function toggleAside(open) {
+    const method = open === true ? "add" : open === false ? "remove" : "toggle";
+    if (aside) aside.classList[method]("open");
+    if (navTogglerBtn) navTogglerBtn.classList[method]("open");
+    if (sections && sections.length) sections.forEach(s => s.classList[method]("open"));
+  }
+
+  if (navTogglerBtn) {
+    navTogglerBtn.addEventListener("click", () => toggleAside());
+  }
+
+  /* ========================= Close menu after clicking a nav link (mobile) ========================= */
+  const nav = document.querySelector(".nav");
+  if (nav) {
+    nav.addEventListener("click", (e) => {
+      const link = e.target.closest("a");
+      if (!link) return;
+      // Let normal navigation happen; just close the drawer for nicer UX on small screens
+      if (window.innerWidth < 1200) toggleAside(false);
+    });
+  }
+
+  /* ========================= Highlight active link by URL ========================= */
+  if (nav) {
+    const current = location.pathname.split("/").pop() || "index.html";
+    nav.querySelectorAll("a").forEach((a) => {
+      const href = a.getAttribute("href") || "";
+      const normalized = href === "#" || href === "" ? "index.html" : href;
+      if (normalized === current) a.classList.add("active");
+      else a.classList.remove("active");
+    });
+  }
+
+  /* ========================= "Hire me" button (optional) ========================= */
+  const hireBtn = document.querySelector(".hire-me");
+  if (hireBtn) {
+    hireBtn.addEventListener("click", (e) => {
+      // Use data-href if provided; default to contact page
+      const targetPage = hireBtn.dataset.href || "contact.html";
+      window.location.href = targetPage;
+    });
+  }
 });
-
-/* ========================= Aside ========================= */
-const nav = document.querySelector(".nav"),
-  navList = nav.querySelectorAll("li"),
-  totalNavList = navList.length,
-  allSection = document.querySelectorAll(".section"),
-  totalSection = allSection.length;
-
-for (let i = 0; i < totalNavList; i++) {
-  const a = navList[i].querySelector("a");
-  a.addEventListener("click", function () {
-    removeBackSection();
-    for (let j = 0; j < totalNavList; j++) {
-      if (navList[j].querySelector("a").classList.contains("active")) {
-        addBackSection(j);
-        //allSection[j].classList.add("back-section")
-      }
-      navList[j].querySelector("a").classList.remove("active");
-    }
-    this.classList.add("active");
-    showSection(this);
-    if (window.innerWidth < 1200) {
-      asideSectionTogglerBtn();
-    }
-  });
-}
-
-function removeBackSection() {
-  for (let i = 0; i < totalSection; i++) {
-    allSection[i].classList.remove("back-section");
-  }
-}
-
-function addBackSection(num) {
-  allSection[num].classList.add("back-section");
-}
-
-function showSection(element) {
-  for (let i = 0; i < totalSection; i++) {
-    allSection[i].classList.remove("active");
-  }
-  const target = element.getAttribute("href").split("#")[1];
-  document.querySelector("#" + target).classList.add("active");
-}
-
-function updateNav(element) {
-  for (let i = 0; i < totalNavList; i++) {
-    navList[i].querySelector("a").classList.remove("active");
-    const target = element.getAttribute("href").split("#")[1];
-    if (
-      target ===
-      navList[i].querySelector("a").getAttribute("href").split("#")[1]
-    ) {
-      navList[i].querySelector("a").classList.add("active");
-    }
-  }
-}
-
-document.querySelector(".hire-me").addEventListener("click", function () {
-  const sectionIndex = this.getAttribute("data-section-index");
-  //console.log(sectionIndex)
-  showSection(this);
-  updateNav(this);
-  removeBackSection();
-  addBackSection(sectionIndex);
-});
-
-const navTogglerBtn = document.querySelector(".nav-toggler"),
-  aside = document.querySelector(".aside");
-navTogglerBtn.addEventListener("click", () => {
-  asideSectionTogglerBtn();
-});
-
-function asideSectionTogglerBtn() {
-  aside.classList.toggle("open");
-  navTogglerBtn.classList.toggle("open");
-  for (let i = 0; i < totalSection; i++) {
-    allSection[i].classList.toggle("open");
-  }
-}
