@@ -380,6 +380,23 @@ h3.my-profession {
   height: 400px;
 }
 
+/* Portrait background wrapper */
+.portrait-bg {
+  position: relative;
+  display: inline-block;
+  
+  background-color: var(--skin-color); /* controlled by color switcher */
+  transition: background-color 0.3s ease;
+}
+
+.portrait-bg img {
+  display: block;
+  height: 400px;
+  width: auto;
+  border-radius: 10px;
+}
+
+
 /* About */
 .about .about-content {
   flex: 0 0 100%;
