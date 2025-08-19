@@ -1,50 +1,21 @@
 // script.js — multipage-safe
+
 document.addEventListener("DOMContentLoaded", () => {
-  const typingEl  = document.querySelector(".typing");
-  const articleEl = document.querySelector(".article");
-
-  if (!typingEl || !articleEl || !window.Typed) return;
-
-  const strings = [
-    "",
-    "GRC Analyst",
-    "Information Systems Auditor",
-    "Cybersecurity Professional"
-  ];
-
-  // Minimal, practical rules
-  const pickArticle = (t = "") => {
-    t = t.trim();
-    if (!t) return "a";
-
-    // vowel-sound exceptions
-    if (/^(hour|honest|honor|heir)/i.test(t)) return "an";
-    // vowel letter but consonant sound
-    if (/^(uni(vers|que|anim)|user|ubiquit|euro)/i.test(t)) return "a";
-    // ALL‑CAPS acronyms: an if first letter sounds like a vowel (F, H, L, M, N, R, S, X)
-    if (/^[A-Z]{2,}/.test(t)) return /^[FHLMNRSX]/.test(t[0]) ? "an" : "a";
-    // default
-    return /^[aeiou]/i.test(t) ? "an" : "a";
-  };
-
-  // Create exactly ONE Typed instance (remove any other inits)
-  const typed = new Typed(".typing", {
-    strings,
-    typeSpeed: 60,
-    backSpeed: 60,
-    backDelay: 1200,
-    smartBackspace: true,
-    loop: true,
-    // Set article for the first string immediately
-    onBegin: (self) => {
-      articleEl.textContent = pickArticle(self.strings[0]);
-    },
-    // Update article before each new string types
-    preStringTyped: (idx, self) => {
-      articleEl.textContent = pickArticle(self.strings[idx]);
-    },
-  });
-
+  /* ========================= Typing Animation (guarded) ========================= */
+  const typingEl = document.querySelector(".typing");
+  if (typingEl && window.Typed) {
+    // Note: 'backSpeed' (lowercase 'b') is the correct option
+    new Typed(".typing", {
+      strings: [
+        "Cybersecurity Professional",
+        "GRC Analyst",
+        "Information Systems Auditor",
+      ],
+      typeSpeed: 100,
+      backSpeed: 60,
+      loop: true,
+    });
+  }
 
   /* ========================= Mobile Aside Toggler (multipage) ========================= */
   const navTogglerBtn = document.querySelector(".nav-toggler");
