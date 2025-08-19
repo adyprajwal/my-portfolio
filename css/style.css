@@ -904,3 +904,80 @@ h3.my-profession {
     max-width: 100%;
   }
 }
+
+/* Narrow desktop: sidebar visible, but width is tight */
+@media (min-width: 1200px) and (max-width: 1400px) {
+  /* Slightly scale down the portrait so it never clips */
+  .home .home-img img {
+    height: 340px;     /* down from 400px */
+    max-width: 100%;   /* respect the column width */
+    width: auto;
+  }
+
+  /* Nudge the frame in from the right edge of the screen */
+  .home .home-img {
+    padding-right: 14px; /* tiny cushion so the right corner stays inside */
+    position: relative;
+  }
+
+  /* Keep the corners balanced but inside the column */
+  .home-img::before,
+  .home-img::after {
+    width: 70px;   /* slightly smaller corners than full desktop */
+    height: 70px;
+  }
+  .home-img::before {
+    top: -24px;   /* reduced from -40px */
+    left: -14px;  /* keeps left corner inside */
+  }
+  .home-img::after {
+    bottom: -24px;
+    right: -12px; /* pulls the right corner in so it doesn’t touch the edge */
+  }
+}
+/* 1) Just left mobile: 992–1199px (sidebar still hidden) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  /* Keep the portrait inside its column */
+  .home .home-img img {
+    height: 320px;   /* slightly smaller than desktop */
+    max-width: 100%;
+    width: auto;
+  }
+
+  /* Add a bit of right cushion so the frame doesn't kiss the edge */
+  .home .home-img {
+    padding-right: 12px;
+    position: relative;
+  }
+
+  /* Slightly smaller corners + gentler offsets */
+  .home-img::before,
+  .home-img::after {
+    width: 64px;
+    height: 64px;
+  }
+  .home-img::before { top: -20px; left: -12px; }
+  .home-img::after  { bottom: -20px; right: -12px; }
+}
+
+/* 2) Narrow desktop: 1200–1400px (sidebar visible, width still tight) */
+@media (min-width: 1200px) and (max-width: 1400px) {
+  .home .home-img img {
+    height: 340px;   /* down from 400px */
+    max-width: 100%;
+    width: auto;
+  }
+
+  .home .home-img {
+    padding-right: 14px; /* tiny cushion on the right */
+    position: relative;
+  }
+
+  .home-img::before,
+  .home-img::after {
+    width: 70px;
+    height: 70px;
+  }
+  .home-img::before { top: -24px; left: -14px; }
+  .home-img::after  { bottom: -24px; right: -12px; }
+}
