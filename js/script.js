@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Note: 'backSpeed' (lowercase 'b') is the correct option
     new Typed(".typing", {
       strings: [
-        "",
         "Cybersecurity Professional",
         "GRC Analyst",
         "Information Systems Auditor",
