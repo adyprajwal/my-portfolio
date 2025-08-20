@@ -338,6 +338,7 @@ h3.my-profession {
 .typing {
   color: var(--skin-color);
 }
+.article { color: inherit; } /* stays same as base text */
 
 .home-info p {
   margin-bottom: 70px;
